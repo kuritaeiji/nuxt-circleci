@@ -1,0 +1,24 @@
+version: 2.1
+jobs:
+  build_and_test:
+    docker:
+      - image: node:14
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run: yarn install --immutable
+      - save_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run: yarn test
+
+workflows:
+  build-deploy:
+    jobs:
+      - build_and_test
+
+
+
