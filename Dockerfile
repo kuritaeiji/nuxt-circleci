@@ -1,0 +1,7 @@
+FROM node:14
+
+ENV LANG=C.UTF-8 \
+    TZ=ASIA/TOKYO \
+    HOST=0.0.0.0
+
+WORKDIR /app
